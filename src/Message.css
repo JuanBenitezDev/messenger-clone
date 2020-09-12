@@ -1,0 +1,32 @@
+.message {
+  padding: 5px;
+  margin: 5px;
+  width: fit-content;
+  border-radius: 50px 50px 5px 5px !important;
+}
+
+.message__userCard {
+  background-color: #0b81ff !important;
+  border-bottom-left-radius: 50px !important;
+  text-align: left !important;
+  margin-left: auto;
+}
+
+.message__guestCard {
+  background-color: #e9e9eb !important;
+  border-bottom-right-radius: 50px !important;
+  margin-right: auto;
+}
+
+.message__userCard + .message__userCard {
+  border-top-right-radius: 5px !important;
+}
+
+.message__guestCard + .message__guestCard {
+  border-top-left-radius: 5px !important;
+}
+
+.message__last {
+  border-bottom-right-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+}
