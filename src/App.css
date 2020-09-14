@@ -1,29 +1,54 @@
 .app {
   text-align: center;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.app__logoContainer {
+  position: sticky;
+  height: 80px;
+  z-index: 1;
+  width: inherit;
+  background-color: white;
+  top: 0;
 }
 
 .app__logo {
-  margin: 20px;
+  margin: 15px auto;
+  height: 50px;
+}
+
+.app__conversation {
+  height: calc(var(--app-height) - (60px + 80px));
+  overflow: auto;
 }
 
 .app__form {
-  padding: 20px;
-  position: fixed;
-  bottom: 0;
-  z-index: 1;
-  background-color: #e9e9eb;
-  width: 100%;
+  background-color: white;
+  height: 60px;
+  display: flex;
+  justify-content: center;
 }
 
 .app__formControl {
+  width: 100%;
   display: flex !important;
   flex-direction: row !important;
+  margin: auto 8px !important;
+  height: 50px;
 }
 
 .app__input {
+  border-radius: 20px;
+  border: 1px solid #2d9fd9;
   flex: 1;
+  padding: 10px !important;
+  overflow: auto;
 }
 
 .app__iconButton {
   flex: 0;
+  background-color: white !important;
 }

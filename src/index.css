@@ -1,3 +1,17 @@
+:root {
+  --app-height: 100%;
+  --app-width: 100%;
+}
+
+html,
+body {
+    @media not all and (hover:hover) {
+        height: var(--app-height) !important;
+        width: var(--app-width) !important;
+    }
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +19,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #e9e9e9;
 }
 
 code {

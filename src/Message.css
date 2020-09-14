@@ -1,32 +1,69 @@
 .message {
-  padding: 5px;
-  margin: 5px;
-  width: fit-content;
-  border-radius: 50px 50px 5px 5px !important;
+  display: flex;
+  flex-direction: column;
 }
 
-.message__userCard {
+.message > div {
+  padding: 5px;
+  margin: 3px;
+  width: fit-content;
+  border-radius: 15px 15px 5px 5px !important;
+  max-width: calc(100% - 15%);
+}
+
+.message__userCard > div {
   background-color: #0b81ff !important;
-  border-bottom-left-radius: 50px !important;
+  border-bottom-left-radius: 15px !important;
   text-align: left !important;
   margin-left: auto;
 }
 
-.message__guestCard {
+.message__guestCard > div {
   background-color: #e9e9eb !important;
-  border-bottom-right-radius: 50px !important;
+  border-bottom-right-radius: 15px !important;
   margin-right: auto;
+  text-align: left !important;
 }
 
-.message__userCard + .message__userCard {
+.message__userCard + .message__userCard > div { 
   border-top-right-radius: 5px !important;
+  margin-top: 1px;
 }
 
-.message__guestCard + .message__guestCard {
+.message__guestCard + .message__guestCard.message__sameUser > div {
   border-top-left-radius: 5px !important;
+  margin-top: 1px;
 }
 
-.message__last {
-  border-bottom-right-radius: 50px !important;
-  border-bottom-left-radius: 50px !important;
+.message__last > div {
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  margin-bottom: 10px;
+}
+
+.message__first > div {
+  border-top-right-radius: 15px !important;
+  border-top-left-radius: 15px !important;
+}
+
+.message > span {
+  display: none;
+}
+
+.message__first > span{
+  display: initial;
+  text-align: left !important;
+  margin-left: 10px;
+  font-size: 0.78rem;
+}
+
+.MuiCardContent-root:last-child {
+  padding: 4px 10px !important;
+}
+
+.MuiTypography-body2 {
+  font-size: 0.875rem !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
 }

@@ -6,6 +6,7 @@ import db from "./firebase";
 import firebase from "firebase";
 import FlipMove from "react-flip-move";
 import SendIcon from "@material-ui/icons/Send";
+import { animateScroll } from "react-scroll";
 
 function App() {
   const [input, setInput] = useState("");
@@ -32,10 +33,40 @@ function App() {
     return LastMessage.data().username !== obj.username;
   };
 
+  const getIsSameUserAsBefore = (obj, index, messages) => {
+    if (index === 0) {
+      return false;
+    }
+
+    const LastMessage = messages[index - 1];
+
+    return LastMessage.data().username === obj.username;
+  };
+
+  const scrollToBottom = () => {
+    animateScroll.scrollToBottom({
+      containerId: "app__conversation",
+      smooth:'linear',
+      delay: 0,
+      duration: 450,
+    });
+  };
+
+  function resetHeight(){
+    // reset the body height to that of the inner browser
+    const doc = document.documentElement
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    doc.style.setProperty('--app-width', `${window.innerWidth}px`)
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", resetHeight);
+  }, [])
+
   useEffect(() => {
     // Setting listener to get messages from database on Firebase
     db.collection("messages")
-      .orderBy("timestamp", "desc")
+      .orderBy("timestamp")
       .onSnapshot((snapshot) => {
         setMessages(
           snapshot.docs.map((doc, index) => ({
@@ -43,13 +74,16 @@ function App() {
             message: doc.data(),
             isLast: getIsLast(doc.data(), index, snapshot.docs),
             isFirst: getIsFirst(doc.data(), index, snapshot.docs),
+            IsSameUserAsBefore: getIsSameUserAsBefore(doc.data(), index, snapshot.docs)
           }))
         );
+      scrollToBottom();
       });
   }, []);
 
   useEffect(() => {
     setUsername(prompt("Please enter your name"));
+    resetHeight();
   }, []);
 
   const sendMessage = (e) => {
@@ -67,23 +101,27 @@ function App() {
 
   return (
     <div className="app">
-      <img
-        className="app__logo"
-        src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100"
-        alt="Logo"
-      ></img>
-
-      <FlipMove>
-        {messages.map(message => (
-          <Message
-            message={message.message}
-            isLast={message.isLast}
-            isFirst={message.isFirst}
-            user={username}
-            key={message.id}
-          />
-        ))}
-      </FlipMove>
+      <div className="app__logoContainer">
+        <img
+          className="app__logo"
+          src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=50&h=50"
+          alt="Logo"
+        ></img>
+      </div>
+      <div className="app__conversation" id="app__conversation">
+        <FlipMove>
+          {messages.map((message) => (
+            <Message
+              message={message.message}
+              isLast={message.isLast}
+              isFirst={message.isFirst}
+              IsSameUserAsBefore={message.IsSameUserAsBefore}
+              user={username}
+              key={message.id}
+            />
+          ))}
+        </FlipMove>
+      </div>
 
       <form className="app__form">
         <FormControl className="app__formControl">
@@ -96,6 +134,8 @@ function App() {
               setInput(e.target.value);
             }}
             className="app__input"
+            multiline={true}
+            disableUnderline={true}
           />
           <IconButton
             disabled={!input}
